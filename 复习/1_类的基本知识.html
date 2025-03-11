@@ -57,6 +57,20 @@
         console.log(s1);
         s1.speak();
         s1.study();
+
+        class Car {
+            constructor(name, price){
+                this.name = name
+                this.price = price
+                this.wheel = 4
+            }
+
+            static demo = 100
+        }
+
+        const car1 = new Car('奥迪Q5L', 199)
+        console.log(car1)
+        console.log(Car.demo)
     </script>
 </body>
 </html>
