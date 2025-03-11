@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>state</title>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入 react dom 库 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入 babel 库, 用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel"> /* 此处一定要写 babel*/
+        //1. 创建组件
+        class Weather extends React.Component {
+            //构造器调用  --- 1 次
+            constructor(props){
+                console.log("constructor")
+                super(props)
+                this.state = {
+                    isHot: false,
+                    wind:"微风"
+                }
+                //解决changeWeather中this指向问题
+                this.changeWeather = this.changeWeather.bind(this);
+            }
+            
+            //render调用次数  ----- 1+n次，1是初始化的那次， n 是状态更新的次数
+            render(){
+                console.log(this)
+                const {isHot, wind} = this.state
+                return (
+                    <h1 onClick={this.changeWeather}>今天天气很{isHot ? "炎热" : "凉爽"},{wind}</h1>
+                );
+            }
+            
+            //changeWeather 调用次数 ---- 点几次，调用几次
+            changeWeather(){
+                // changeWeather 放在了 Weather 的原型对象上，供实例调用
+                // 由于changeWeather是做为onClick的回调，所以不是通过实例调用的，是直接调用
+                // 类中的方法默认开启了局部严格模式，所以changeWeather中的this为undefined
+
+                const isHot = this.state.isHot;
+                //严重注意：状态必须通过setState进行更新，且更新是一种合并，不是替换
+                this.setState({
+                    isHot: !isHot
+                })
+                //严重注意：状态（state)不可直接更改，下面这行就是直接更改
+                // this.state.isHot = !isHot // 这是错误的写法
+
+            }
+        }
+
+        //2. 渲染组件到页面
+        ReactDOM.render(<Weather/>, document.getElementById("test"))
+    
+    </script>
+</body>
+</html>
