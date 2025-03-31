@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入 react dom 库 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入 babel 库, 用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel"> /* 此处一定要写 babel*/
+        //创建组件
+        class Demo extends React.Component {
+            //展示左边输入框的数据
+            showData = () => {
+                console.log(this.refs.input1.value)
+            }
+
+            showData1 = () => {
+                console.log(this.refs.input2.value)
+            }
+
+            render(){
+                return (
+                    <div>
+                        <input ref="input1" type="text" placeholder="点击按钮提示数据"/>&nbsp;
+                        <button onClick={this.showData} >点我提示左侧的数据</button>&nbsp;
+                        <input ref="input2" type="text" placeholder="失去焦点提示数据" onBlur={this.showData1}/>
+                    </div>
+                )
+            }
+        }
+
+        //渲染组件到页面
+        ReactDOM.render(<Demo />, document.getElementById('test'))
+    
+    </script>
+</body>
+</html>
