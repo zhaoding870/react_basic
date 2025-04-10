@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/17.1/react.development.js"></script>
+    <!-- 引入 react dom 库 -->
+    <script type="text/javascript" src="../js/17.1/react-dom.development.js"></script>
+    <!-- 引入 babel 库, 用于将 jsx 转为 js -->
+    <script type="text/javascript" src="../js/17.1/babel.min.js"></script>
+
+    <script type="text/babel"> /* 此处一定要写 babel*/
+        class Timer extends React.Component {
+            state = {time: new Date()}
+            componentDidMount(){
+                setInterval(() => {
+                    this.setState({time:new Date()});
+                }, 1000);
+            }
+            render(){
+                return (
+                    <div>
+                        <h2>Hello</h2>
+                        <input type="text"/>
+                        <span>现在的时间是：{this.state.time.toTimeString()}</span>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Timer/>, document.getElementById("test"));
+    
+    </script>
+</body>
+</html>
