@@ -34,9 +34,16 @@
                 }
             }
 
-            //组件将要挂载的勾子
-            UNSAFE_componentWillMount(){
-                console.log('Count---componentWillMount')
+            //若state的值，任何时候，都取决于props, 可以使用这个方法
+            static getDerivedStateFromProps(props, state){
+                console.log('Count---getDerivedStateFromProps', props, state)
+                return null;
+            }
+
+            //在更新之前获取快照
+            getSnapshotBeforeUpdate(prevProps,prevState){
+                console.log('Count---getSnapshotBeforeUpdate', prevProps, prevState);
+                return 'test1';
             }
 
             //组件挂载完毕勾子
@@ -50,14 +57,9 @@
                 return true
             }
 
-            //组件将要更新的勾子
-            UNSAFE_componentWillUpdate(){
-                console.log('Count---componentWillUpdate')
-            }
-
             //组件更新完毕的勾子
-            componentDidUpdate(){
-                console.log('Count---componentDidUpdate')
+            componentDidUpdate(prevProps, prevState, snapshot){
+                console.log('Count---componentDidUpdate', prevProps, prevState, snapshot);
             }
 
             //组件将要卸载勾子
@@ -93,41 +95,7 @@
             }
         }
 
-        class A extends React.Component {
-            state = {carName:'奔驰'}
-
-            changeCar = () => {
-                this.setState({carName: '奥迪'})
-            }
-
-            render() {
-                return (
-                    <div>
-                        <div>我是A组件</div> 
-                        <button onClick={this.changeCar}>换车</button>
-                        <B carName={this.state.carName}/>   
-                    </div>
-                )
-            }
-        }
-
-        class B extends React.Component {
-            //组件将要接受到父组件的属性
-            UNSAFE_componentWillReceiveProps(props){
-                console.log('B---componentWillReceiveProps', props)
-            }
-
-            render(){
-                console.log('B---render')
-                return (
-                    <div>
-                        <div>我是B组件,汽车是: {this.props.carName}</div>    
-                    </div>
-                )
-            }
-        }
-        
-        ReactDOM.render(<A/>, document.getElementById('test'))
+        ReactDOM.render(<Counnt count={199}/>, document.getElementById('test'))
     
     </script>
 </body>
